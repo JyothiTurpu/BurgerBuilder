@@ -13,11 +13,6 @@ const INGREDIENT_PRICE = {
 };
 
 class BurgerBuilder extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {};
-  // }
-
   state = {
     ingredients: {
       salad: 0,
@@ -109,6 +104,7 @@ class BurgerBuilder extends Component {
         >
           <OrderSummary
             ingredients={this.state.ingredients}
+            price={this.state.totalPrice}
             purchaseCanceled={this.purchaseCancelHandler}
             purchaseContinued={this.purchaseContinueHandler}
           />
