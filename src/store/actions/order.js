@@ -16,7 +16,7 @@ export const purchaseBurgerFail = (error) => {
   };
 };
 
-export const purchaseBurger = (orderData) => {
+export const purchaseBurger = (orderData, token) => {
   return (dispatch) => {
     dispatch(purchaseBurgerStart());
     axios
@@ -62,11 +62,11 @@ export const fetchOrdersStart = () => {
   };
 };
 
-export const fetchOrders = () => {
+export const fetchOrders = (token) => {
   return (dispatch) => {
     dispatch(fetchOrdersStart());
     axios
-      .get("/orders.json")
+      .get("/orders.json?auth=".concat(token))
       .then((response) => {
         console.log("Orders Response ", response.data);
 
