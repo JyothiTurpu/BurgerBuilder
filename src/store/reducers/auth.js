@@ -48,6 +48,11 @@ const reducer = (state = initialState, action) => {
         authRedirectPath: action.path,
       };
     }
+    case actionTypes.AUTH_CHECK_STATUS: {
+      return {
+        ...state,
+      };
+    }
     default:
       return state;
   }
