@@ -144,7 +144,7 @@ class ContactData extends Component {
       orderData: formData,
       userId: this.props.userId,
     };
-    console.log("Inside OrderHandler");
+
     this.props.onOrderBurger(order, this.props.token);
   };
 

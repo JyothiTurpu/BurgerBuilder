@@ -22,7 +22,6 @@ class Checkout extends Component {
   render() {
     let summary = <Redirect to="/" />;
 
-    console.log("this.props.ing " + this.props.ings);
     if (this.props.ings) {
       const purchasedRedirect = this.props.purchased ? (
         <Redirect to="/" />
