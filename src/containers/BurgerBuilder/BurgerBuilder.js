@@ -10,7 +10,7 @@ import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import WithErrorHandler from "../../hoc/WithErrorHandler/WithErrorHandler";
-import * as burgerBuilderActions from "../../store/actions/index";
+import * as actions from "../../store/actions/index";
 
 class BurgerBuilder extends Component {
   state = {
@@ -22,7 +22,11 @@ class BurgerBuilder extends Component {
   }
 
   purchaseHandler = () => {
-    this.setState({ purchasing: true });
+    if (this.props.isAuthenticated) this.setState({ purchasing: true });
+    else {
+      this.props.onSetAuthRedirectPath("/checkout");
+      this.props.history.push("/auth");
+    }
   };
 
   updatePurchaseState() {
@@ -86,6 +90,7 @@ class BurgerBuilder extends Component {
             price={this.props.price}
             purchasable={this.updatePurchaseState()}
             ordered={this.purchaseHandler}
+            isAuth={this.props.isAuthenticated}
           />
         </Aux>
       );
@@ -110,22 +115,26 @@ const mapStateToProps = (state) => {
     ings: state.burgerBuilder.ingredients,
     price: state.burgerBuilder.totalPrice,
     error: state.burgerBuilder.error,
+    isAuthenticated: state.auth.token !== null,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onIngredientAdded: (ingName) => {
-      dispatch(burgerBuilderActions.addIngredient(ingName));
+      dispatch(actions.addIngredient(ingName));
     },
     onIngredientRemoved: (ingName) => {
-      dispatch(burgerBuilderActions.removeIngredient(ingName));
+      dispatch(actions.removeIngredient(ingName));
     },
     onInitIngredients: () => {
-      dispatch(burgerBuilderActions.initIngredients());
+      dispatch(actions.initIngredients());
     },
     onInitPurchase: () => {
-      dispatch(burgerBuilderActions.purchaseInit());
+      dispatch(actions.purchaseInit());
+    },
+    onSetAuthRedirectPath: (path) => {
+      dispatch(actions.setAuthRedirectPath(path));
     },
   };
 };
