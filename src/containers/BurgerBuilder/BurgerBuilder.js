@@ -12,6 +12,7 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import WithErrorHandler from "../../hoc/WithErrorHandler/WithErrorHandler";
 import * as actions from "../../store/actions/index";
 
+// export class BurgerBuilder extends Component { //Used for testing
 class BurgerBuilder extends Component {
   state = {
     purchasing: false,
